@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import Spinner from '../components/Spinner/Spinner';
 import useAuth from '../hooks/useAuth';
@@ -6,7 +6,11 @@ import useAuth from '../hooks/useAuth';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { user, error, isLoading, signIn, logOut } = useAuth();
+    const { user, logregerror, setError, isLoading, signIn, logOut } = useAuth();
+
+    useEffect(()=>{
+        setError("");
+    },[])
 
     const logInClicked = async (e) => {
         e.preventDefault();
@@ -41,7 +45,7 @@ const Login = () => {
                                             <input type="password" className='border px-4 border-primary h-10 rounded-sm placeholder:text-gray-800 ' placeholder='Password' onChange={(e) => setPassword(e.target.value)} required />
 
                                             <button type='submit' className='border p-4 border-l-pink-50 bg-primary text-white' >Log in</button>
-                                            {(error) && <h1 className="link-text text-red-600 text-center">{error}</h1>}
+                                            
                                             <Link to='/register' className='link-text text-center'>NOT YET REGISTERED? CLICK HERE TO REGISTER</Link>
                                         </div>
                                     </div>

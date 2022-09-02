@@ -9,7 +9,7 @@ import { app, fireDb } from '../firebase.config';
 
 const useFirebase = () => {
     const [user, setUser] = useState({});
-    const [error, setError] = useState('');
+    const [logregerror, setError] = useState('');
     const [isLoading, setLoading] = useState(true);
     const auth = getAuth();
     const navigate = useNavigate();
@@ -56,7 +56,7 @@ const useFirebase = () => {
             const errorMessage = error.message;
             setError(errorMessage);
             toast.error('Signup atempt unsuccessful');
-            console.log(error);
+            console.log(errorMessage);
         } finally {
             setLoading(false);
         }
@@ -77,8 +77,9 @@ const useFirebase = () => {
             navigate('/home');
         } catch (error) {
             toast.error('Login atempt unsuccessful');
-            setError(error);
+            setError(error.message);
             console.log(error);
+            navigate('/login');
         }
         finally {
             setLoading(false);
@@ -221,7 +222,7 @@ const useFirebase = () => {
     }
 
     return {
-        user, error, isLoading, signUp, signIn, logOut, addPost, getPosts, getPost, updatePost, deletePost, getUsers,getUser, updateUser
+        user, logregerror, setError, isLoading, signUp, signIn, logOut, addPost, getPosts, getPost, updatePost, deletePost, getUsers,getUser, updateUser
     }
 };
 
